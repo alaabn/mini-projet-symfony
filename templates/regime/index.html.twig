@@ -21,7 +21,7 @@
 						</h2>
 					{% endif %}
 				</div>
-				{% for label, messages in app.flashes(['success', 'danger' ,'primary']) %}
+				{% for label, messages in app.flashes(['success', 'danger' ,'warning']) %}
 					{% for message in messages %}
 						<div class="alert alert-{{label}} col-4" align="center">
 							{{ message }}

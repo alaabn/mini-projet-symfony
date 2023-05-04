@@ -35,4 +35,4 @@ classDiagram
         +setRegime(ID $regime_id): void
     }
 
-    Regime "1" -- "1..*" Plat : Possédes
+    Regime "1" -- "1..*" Plat : ( Possède )

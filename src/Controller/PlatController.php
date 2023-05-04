@@ -14,14 +14,12 @@ class PlatController extends AbstractController
     /** @Route("/plat", name= "show_plat") */
     public function show()
     {
-        $this->addFlash("primary", "Bienvenu! voici tous les plats.");
-
         return $this->render('plat/index.html.twig', [
             'plats' => $plats = $this->getDoctrine()->getRepository(Plat::class)->findAll(),
         ]);
     }
 
-    /** @Route("/plat/{id}", name= "plat_id") */
+    /** @Route("/plat/id/{id}", name= "plat_id") */
     public function showById($id)
     {
         $plat = $this->getDoctrine()->getManager()->getRepository(Plat::class)->findBy(['id' => $id]);
@@ -30,23 +28,24 @@ class PlatController extends AbstractController
         ]);
     }
 
-    /** @Route("/ajouter_plat", name= "ajouter_plat", priority=10) */
+    /** @Route("/plat/ajouter", name= "ajouter_plat", priority=10) */
     public function ajouter(Request $request)
     {
-        $regime = new Plat;
+        $plat = new Plat;
 
         $form = $this->createForm(PlatType::class);
         $form->handleRequest($request);
 
         if( $form->isSubmitted() && $form->isValid()){
 
-            $regime = $form->getData();
+            $plat = $form->getData();
             
             $em = $this->getDoctrine()->getManager();
-            $em->persist($regime);
+            $em->persist($plat);
             $em->flush();
 
-            $this->addFlash("notice", "Nouveau Plat a été ajouter avec succeé!");
+            $this->addFlash("success", "Nouveau Plat a été ajouter avec succeé!");
+            return $this->redirectToRoute('show_plat');
         }
 
         return $this->render('plat/add.html.twig', [

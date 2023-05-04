@@ -15,8 +15,6 @@ class RegimeController extends AbstractController
     {
         $regimes = $this->getDoctrine()->getManager()->getRepository(Regime::class)->findAll();
 
-        $this->addFlash("primary", "Bienvenu! voici tous les reégimes.");
-
         return $this->render('regime/index.html.twig', [
             'regimes' => $regimes,
         ]);
@@ -49,6 +47,7 @@ class RegimeController extends AbstractController
             $em->flush();
 
             $this->addFlash("success", "Nouveau Regime a été ajouter avec succeé!");
+            return $this->redirectToRoute('show_regime');
         }
 
         return $this->render('regime/add.html.twig', [
@@ -60,12 +59,12 @@ class RegimeController extends AbstractController
     public function delete($id)
     {
         $regime = $this->getDoctrine()->getRepository(Regime::class)->find($id);
+        $nom = $regime->getNomRegime();
         $em = $this->getDoctrine()->getManager();
         $em->remove($regime);
         $em->flush();
 
-        $this->addFlash("danger", "Régime avec ID: .'$id'. a été supprimé!");
-
+        $this->addFlash("danger", "Régime ($nom) a été supprimé!");
         return $this->redirectToRoute('show_regime');
     }
 
@@ -82,7 +81,8 @@ class RegimeController extends AbstractController
 
             $em->flush();
 
-            $this->addFlash("success", "Regime a été modifier avec succeé!");
+            $this->addFlash("warning", "Regime a été modifier avec succeé!");
+            return $this->redirectToRoute('show_regime');
         }
 
         return $this->render('regime/edit.html.twig', [

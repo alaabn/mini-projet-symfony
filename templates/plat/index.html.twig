@@ -21,7 +21,7 @@
 						</h2>
 					{% endif %}
 				</div>
-				{% for label, messages in app.flashes(['success', 'danger' ,'primary']) %}
+				{% for label, messages in app.flashes(['success', 'danger' ]) %}
 					{% for message in messages %}
 						<div class="alert alert-{{label}} col-4" align="center">
 							{{ message }}
@@ -75,14 +75,14 @@
 								</td>
 								{% endif %}
 								<td>
-									{{ plat.regime.getNomRegime() }}
+									{{ plat.regime ? plat.regime.getNomRegime() : '☒no regime☒' }}
 								</td>
 							</tr>
 						{% endfor %}
 						{% if  app.request.pathinfo == '/plat' %}
 						<tr>
 							<td colspan="6" style="text-align: center">
-								<a href="/ajouter_plat" class="btn btn-primary justify-content-center">Ajouter Plat</a>
+								<a href="/plat/ajouter" class="btn btn-primary justify-content-center">Ajouter Plat</a>
 							</td>
 						</tr>
 						{% endif %}

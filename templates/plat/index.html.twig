@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+{% block title%}
+	Liste des Plats
+{% endblock %}
+
+{% block body %}
+	<div class="container table-responsive">
+		<div class="row">
+			<div class="row justify-content-center">
+				<div class="row justify-content-left">
+					{% if  app.request.pathinfo == '/plat' %}
+						<h1>
+							Tableau Plats:
+						</h1>
+					{% else %}
+						<h2>
+							Détails du plat
+							<span style="color: green">
+								{{plats[0].nomPlat}}
+							</span>:
+						</h2>
+					{% endif %}
+				</div>
+				{% for label, messages in app.flashes(['success', 'danger' ,'primary']) %}
+					{% for message in messages %}
+						<div class="alert alert-{{label}} col-4" align="center">
+							{{ message }}
+						</div>
+					{% endfor %}
+				{% endfor %}
+			</div>
+			{% if plats %}
+				<table class="table table-bordered border-success w-50 mt-3 mx-auto ">
+					<thead>
+						<tr>
+							<th scope="col">
+								Nom Plat</th>
+							<th scope="col">
+								Nbr Calories
+							</th>
+							<th scope="col">
+								Ingredients
+							</th>
+							<th scope="col">
+								Cout
+							</th>
+							{% if  app.request.pathinfo == '/plat' %}
+							<th scope="col">
+								Actions
+							</th>
+							{% endif %}
+							<th scope="col">
+								Plat du régime
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for plat in plats %}
+							<tr>
+								<td>
+									{{ plat.nomPlat }}
+								</td>
+								<td>
+									{{ plat.nbrCalories }}
+								</td>
+								<td>
+									{{ plat.ingredients }}
+								</td>
+								<td>
+									{{ plat.cout }}
+								</td>
+								{% if  app.request.pathinfo == '/plat' %}
+								<td>
+									<a href="/plat/{{ plat.id }}" class="btn btn-success">Détails</a>
+								</td>
+								{% endif %}
+								<td>
+									{{ plat.regime.getNomRegime() }}
+								</td>
+							</tr>
+						{% endfor %}
+						{% if  app.request.pathinfo == '/plat' %}
+						<tr>
+							<td colspan="6" style="text-align: center">
+								<a href="/ajouter_plat" class="btn btn-primary justify-content-center">Ajouter Plat</a>
+							</td>
+						</tr>
+						{% endif %}
+					</tbody>
+				</table>
+			{% else %}
+				<p>Aucun Plat</p>
+			{% endif %}
+
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+{% block title%}
+	Liste des Régimes
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<div class="row justify-content-center">
+				<div class="row justify-content-left">
+					{% if  app.request.pathinfo == '/regime' %}
+						<h1>
+							Tableau Régimes:
+						</h1>
+					{% else %}
+						<h2>
+							Détails du régime
+							<span style="color: green">
+								{{regimes[0].nomRegime}}
+							</span>:
+						</h2>
+					{% endif %}
+				</div>
+				{% for label, messages in app.flashes(['success', 'danger' ,'primary']) %}
+					{% for message in messages %}
+						<div class="alert alert-{{label}} col-4" align="center">
+							{{ message }}
+						</div>
+					{% endfor %}
+				{% endfor %}
+			</div>
+			{% if regimes %}
+				<table class="table table-bordered border-success w-50 mt-3 mx-auto ">
+					<thead>
+						<tr>
+							<th scope="col">
+								Nom Régime
+							</th>
+							<th scope="col">
+								Durée
+							</th>
+							<th scope="col">
+								Type
+							</th>
+							<th scope="col">
+								Plats
+							</th>
+							<th scope="col">
+								Actions
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for regime in regimes %}
+							<tr>
+								<td>
+									{{ regime.nomRegime }}
+								</td>
+								<td>
+									{{ regime.duree }}
+								</td>
+								<td>
+									{{ regime.type }}
+								</td>
+								<td>
+									<div class="dropdown">
+										<button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											{{ regime.plats | length }}
+											Plats
+										</button>
+										{% if regime.plats | length != 0 %}
+											<div class="dropdown-menu border-dark" aria-labelledby="dropdownMenuButton">
+												{% for plat in regime.plats  %}
+													<a href={{ path('plat_id', { 'id': plat.id} ) }} class="dropdown-item">
+														{{ plat.nomPlat }}
+													</a>
+												{% endfor %}
+											</div>
+										{% endif %}
+									</div>
+
+								</td>
+								<td>
+									{% if  app.request.pathinfo == '/regime' %}
+										<a href={{ path('show_regime_id', { 'id': regime.id} ) }} class="btn btn-success">Détails</a>
+									{% endif %}
+
+									<a href={{ path('modif_regime', { 'id': regime.id} ) }} class="btn btn-warning">Modifier</a>
+									<a href={{ path('supprim_regime', { 'id': regime.id} ) }} class="btn btn-danger">Supprimer</a>
+								</td>
+							</tr>
+						{% endfor %}
+						{% if  app.request.pathinfo == '/regime' %}
+							<tr>
+								<td colspan="5" style="text-align: center">
+									<a href="/regime/ajouter" class="btn btn-primary justify-content-center">Ajouter Regime</a>
+								</td>
+							</tr>
+						{% endif %}
+					</tbody>
+				</table>
+			{% else %}
+				<p>Aucun Regime</p>
+			{% endif %}
+
+		</div>
+	</div>
+{% endblock %}

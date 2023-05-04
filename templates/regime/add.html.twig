@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Ajout Plat
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<script>
+		$(document).ready(function () {
+        $('.js-example-basic-multiple').select2();
+        });
+	</script>
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<h2>Ajouter un nouveau Régime:</h2>
+
+			<div class="col-md-6 offset-md-3 mt-5">
+				{% for message in app.flashes("success") %}
+					<div class="alert alert-success mb-3" align="center">
+						{{ message }}
+					</div>
+				{% endfor %}
+
+				{{ form_start(form) }}
+				<div class="form-group mb-3">
+					{{ form_label(form.nomRegime) }}
+					{{ form_widget(form.nomRegime, {'attr':{'class':'form-control mt-1'}}) }}
+				</div>
+
+				<div class="form-group mb-3">
+					{{ form_label(form.duree) }}
+					{{ form_widget(form.duree, {'attr':{'class':'form-control mt-1'}}) }}
+				</div>
+
+				<div class="form-group mb-3">
+					{{ form_label(form.type) }}
+					{{ form_widget(form.type, {'attr':{'class':'form-control mt-1'}}) }}
+				</div>
+
+
+				<div>
+					{{ form_label(form.plats) }}
+					{{ form_widget(form.plats, {'attr':{'class':'form-control js-example-basic-multiple mt-1'}}
+					)}}
+				</div>
+
+				<div class="form-group">
+					<button class="btn btn-primary mt-2 text-white">Ajouter Regime</button>
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -29,28 +29,28 @@
 					{% endfor %}
 				{% endfor %}
 			</div>
-			{% if regimes %}
-				<table class="table table-bordered border-success w-50 mt-3 mx-auto ">
-					<thead>
-						<tr>
-							<th scope="col">
-								Nom Régime
-							</th>
-							<th scope="col">
-								Durée
-							</th>
-							<th scope="col">
-								Type
-							</th>
-							<th scope="col">
-								Plats
-							</th>
-							<th scope="col">
-								Actions
-							</th>
-						</tr>
-					</thead>
-					<tbody>
+			<table class="table table-bordered border-success w-50 mt-3 mx-auto ">
+				<thead>
+					<tr>
+						<th scope="col">
+							Nom Régime
+						</th>
+						<th scope="col">
+							Durée
+						</th>
+						<th scope="col">
+							Type
+						</th>
+						<th scope="col">
+							Plats
+						</th>
+						<th scope="col">
+							Actions
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if regimes %}
 						{% for regime in regimes %}
 							<tr>
 								<td>
@@ -90,18 +90,22 @@
 								</td>
 							</tr>
 						{% endfor %}
-						{% if  app.request.pathinfo == '/regime' %}
-							<tr>
-								<td colspan="5" style="text-align: center">
-									<a href="/regime/ajouter" class="btn btn-primary justify-content-center">Ajouter Regime</a>
-								</td>
-							</tr>
-						{% endif %}
-					</tbody>
-				</table>
-			{% else %}
-				<p>Aucun Regime</p>
-			{% endif %}
+					{% else %}
+						<tr>
+							<td colspan="5" style="text-align: center">
+								<h3> Aucun Regime </h3>
+							</td>
+						</tr>
+					{% endif %}
+					{% if  app.request.pathinfo == '/regime' %}
+						<tr>
+							<td colspan="5" style="text-align: center">
+								<a href="/regime/ajouter" class="btn btn-primary justify-content-center">Ajouter Regime</a>
+							</td>
+						</tr>
+					{% endif %}
+				</tbody>
+			</table>
 
 		</div>
 	</div>

@@ -1,3 +1,5 @@
+{% set nameUser = app.user.name ?? "anonymous" %}
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -18,19 +20,25 @@
 				<a href="/regime" class="navbar-brand">Project9</a>
 				<div class="collapse navbar-collapse" id="navbarText">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						{% if app.user %}
 						<li class="nav-item">
 							<a href="/regime" class="nav-link">🏃 Regimes</a>
 						</li>
 						<li class="nav-item">
 							<a href="/plat" class="nav-link">🥗 Plats</a>
 						</li>
+						{% endif %}
 					</ul>
 					<span class="nav-item me-5 text-light">
 						3<sup>éme</sup>
 						G.INFO - Alaa Ben Nasr
 					</span>
 					<span class="nav-item">
-						<a href="/logout" class="btn btn-light active" role="button" data-bs-toggle="button" aria-pressed="true">Log Out | {{ "user("~app.user.name ?? "anonymous" ~")"}}</a>
+						{% if app.request.pathinfo is not same as('/inscri') %}
+						<a href="/inscri" class="btn btn-light active" role="button" data-bs-toggle="button" aria-pressed="true">Inscrire</a>
+						{% elseif nameUser == 'anonymous' and app.request.pathinfo is not same as('/inscri') %}
+						<a href="/logout" class="btn btn-light active" role="button" data-bs-toggle="button" aria-pressed="true">Log Out | {{ "user("~nameUser~")"}}</a>
+						{% endif %}
 					</span>
 				</div>
 			</div>

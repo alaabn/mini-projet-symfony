@@ -34,10 +34,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: regime::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Regime::class, orphanRemoval: true)]
     private Collection $regime;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: plat::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Plat::class, orphanRemoval: true)]
     private Collection $plat;
 
     public function __construct()

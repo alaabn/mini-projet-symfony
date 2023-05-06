@@ -29,32 +29,32 @@
 					{% endfor %}
 				{% endfor %}
 			</div>
-			{% if plats %}
-				<table class="table table-bordered border-success w-50 mt-3 mx-auto ">
-					<thead>
-						<tr>
-							<th scope="col">
-								Nom Plat</th>
-							<th scope="col">
-								Nbr Calories
-							</th>
-							<th scope="col">
-								Ingredients
-							</th>
-							<th scope="col">
-								Cout
-							</th>
-							{% if  app.request.pathinfo == '/plat' %}
+			<table class="table table-bordered border-success w-50 mt-3 mx-auto ">
+				<thead>
+					<tr>
+						<th scope="col">
+							Nom Plat</th>
+						<th scope="col">
+							Nbr Calories
+						</th>
+						<th scope="col">
+							Ingredients
+						</th>
+						<th scope="col">
+							Cout
+						</th>
+						{% if  app.request.pathinfo == '/plat' %}
 							<th scope="col">
 								Actions
 							</th>
-							{% endif %}
-							<th scope="col">
-								Plat du régime
-							</th>
-						</tr>
-					</thead>
-					<tbody>
+						{% endif %}
+						<th scope="col">
+							Plat du régime
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if plats %}
 						{% for plat in plats %}
 							<tr>
 								<td>
@@ -70,27 +70,32 @@
 									{{ plat.cout }}
 								</td>
 								{% if  app.request.pathinfo == '/plat' %}
-								<td>
-									<a href={{ path('plat_id', { 'id': plat.id} ) }} class="btn btn-success">Détails</a>
-								</td>
+									<td>
+										<a href={{ path('plat_id', { 'id': plat.id} ) }} class="btn btn-success">Détails</a>
+									</td>
 								{% endif %}
 								<td>
 									{{ plat.regime ? plat.regime.getNomRegime() : '☒no regime☒' }}
 								</td>
 							</tr>
 						{% endfor %}
-						{% if  app.request.pathinfo == '/plat' %}
+					{% else %}
+						<tr>
+							<td colspan="6" style="text-align: center">
+								<h3> Aucun Plat </h3>
+							</td>
+						</tr>
+
+					{% endif %}
+					{% if  app.request.pathinfo == '/plat' %}
 						<tr>
 							<td colspan="6" style="text-align: center">
 								<a href="/plat/ajouter" class="btn btn-primary justify-content-center">Ajouter Plat</a>
 							</td>
 						</tr>
-						{% endif %}
-					</tbody>
-				</table>
-			{% else %}
-				<p>Aucun Plat</p>
-			{% endif %}
+					{% endif %}
+				</tbody>
+			</table>
 
 		</div>
 	</div>

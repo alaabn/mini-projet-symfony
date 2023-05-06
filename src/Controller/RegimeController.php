@@ -13,7 +13,9 @@ class RegimeController extends AbstractController
     /** @Route("/regime", name= "show_regime") */
     public function show()
     {
-        $regimes = $this->getDoctrine()->getManager()->getRepository(Regime::class)->findAll();
+        $user = $this->getUser();
+        //dd($user);
+        $regimes = $this->getDoctrine()->getRepository(Regime::class)->findAll();
 
         return $this->render('regime/index.html.twig', [
             'regimes' => $regimes,
@@ -60,6 +62,7 @@ class RegimeController extends AbstractController
     {
         $regime = $this->getDoctrine()->getRepository(Regime::class)->find($id);
         $nom = $regime->getNomRegime();
+        
         $em = $this->getDoctrine()->getManager();
         $em->remove($regime);
         $em->flush();
@@ -79,9 +82,11 @@ class RegimeController extends AbstractController
         if( $form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
 
+            $nomReg = $form->getData()->getNomRegime();
+
             $em->flush();
 
-            $this->addFlash("warning", "Regime a été modifier avec succeé!");
+            $this->addFlash("warning", "Regime ($nomReg) a été modifier avec succeé!");
             return $this->redirectToRoute('show_regime');
         }
 

@@ -18,6 +18,11 @@ class PlatType extends AbstractType
             ->add('cout')
             ->add('nbrCalories')
             ->add('ingredients')
+            ->add('regime', EntityType::class , [
+                'class' => Regime::class,
+                'choice_label' => 'nomRegime',
+                'choice_value' => 'id'
+            ])
         ;
     }
 

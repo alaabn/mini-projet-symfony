@@ -25,9 +25,12 @@
 							<a href="/plat" class="nav-link">🥗 Plats</a>
 						</li>
 					</ul>
-					<span class="navbar-text">
+					<span class="nav-item me-5 text-light">
 						3<sup>éme</sup>
 						G.INFO - Alaa Ben Nasr
+					</span>
+					<span class="nav-item">
+						<a href="/logout" class="btn btn-light active" role="button" data-bs-toggle="button" aria-pressed="true">Log Out | {{ "user("~app.user.name ?? "anonymous" ~")"}}</a>
 					</span>
 				</div>
 			</div>

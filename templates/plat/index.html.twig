@@ -71,7 +71,7 @@
 								</td>
 								{% if  app.request.pathinfo == '/plat' %}
 								<td>
-									<a href="/plat/{{ plat.id }}" class="btn btn-success">Détails</a>
+									<a href={{ path('plat_id', { 'id': plat.id} ) }} class="btn btn-success">Détails</a>
 								</td>
 								{% endif %}
 								<td>

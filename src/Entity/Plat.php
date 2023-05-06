@@ -27,7 +27,12 @@ class Plat
     private ?string $ingredients = null;
 
     #[ORM\ManyToOne(inversedBy: 'plats')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?Regime $regime = null;
+
+    #[ORM\ManyToOne(inversedBy: 'plat')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -90,6 +95,18 @@ class Plat
     public function setRegime(?Regime $regime): self
     {
         $this->regime = $regime;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

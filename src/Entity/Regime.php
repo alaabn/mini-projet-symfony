@@ -24,8 +24,12 @@ class Regime
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\OneToMany(mappedBy: 'regime', targetEntity: Plat::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'regime', targetEntity: Plat::class)]
     private Collection $plats ;
+
+    #[ORM\ManyToOne(inversedBy: 'regime')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -99,6 +103,18 @@ class Regime
                 $plat->setRegime(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

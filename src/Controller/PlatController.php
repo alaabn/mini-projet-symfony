@@ -15,7 +15,7 @@ class PlatController extends AbstractController
     public function show()
     {
         return $this->render('plat/index.html.twig', [
-            'plats' => $plats = $this->getDoctrine()->getRepository(Plat::class)->findAll(),
+            'plats' => $plats = $this->getDoctrine()->getRepository(Plat::class)->findBy(['user' => $this->getUser()->getId()])
         ]);
     }
 
@@ -40,6 +40,8 @@ class PlatController extends AbstractController
 
             $plat = $form->getData();
             
+            $plat->setUser($this->getUser()) ;
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($plat);
             $em->flush();

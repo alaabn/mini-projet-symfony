@@ -20,8 +20,10 @@ class PlatType extends AbstractType
             ->add('ingredients')
             ->add('regime', EntityType::class , [
                 'class' => Regime::class,
+                'placeholder' => 'Choose an option',
                 'choice_label' => 'nomRegime',
-                'choice_value' => 'id'
+                'choice_value' => 'id',
+                'required' => false
             ])
         ;
     }

@@ -13,9 +13,7 @@ class RegimeController extends AbstractController
     /** @Route("/regime", name= "show_regime") */
     public function show()
     {
-        $user = $this->getUser();
-        //dd($user);
-        $regimes = $this->getDoctrine()->getRepository(Regime::class)->findAll();
+        $regimes = $this->getDoctrine()->getRepository(Regime::class)->findBy(['user' => $this->getUser()->getId()]);
 
         return $this->render('regime/index.html.twig', [
             'regimes' => $regimes,
@@ -44,6 +42,8 @@ class RegimeController extends AbstractController
             $em = $this->getDoctrine()->getManager();
 
             $regime = $form->getData();
+
+            $regime->setUser($this->getUser()) ;
 
             $em->persist($regime);
             $em->flush();

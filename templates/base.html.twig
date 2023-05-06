@@ -34,9 +34,9 @@
 						G.INFO - Alaa Ben Nasr
 					</span>
 					<span class="nav-item">
-						{% if app.request.pathinfo is not same as('/inscri') %}
+						{% if not app.user %}
 						<a href="/inscri" class="btn btn-light active" role="button" data-bs-toggle="button" aria-pressed="true">Inscrire</a>
-						{% elseif nameUser == 'anonymous' and app.request.pathinfo is not same as('/inscri') %}
+						{% else %}
 						<a href="/logout" class="btn btn-light active" role="button" data-bs-toggle="button" aria-pressed="true">Log Out | {{ "user("~nameUser~")"}}</a>
 						{% endif %}
 					</span>

@@ -28,12 +28,12 @@ class PlatController extends AbstractController
         ]);
     }
 
-    /** @Route("/plat/ajouter", name= "ajouter_plat", priority=10) */
+    /** @Route("/plat/ajouter", name= "ajouter_plat") */
     public function ajouter(Request $request)
     {
         $plat = new Plat;
 
-        $form = $this->createForm(PlatType::class);
+        $form = $this->createForm(PlatType::class, $plat, ['id' => $this->getUser()->getId(),]);
         $form->handleRequest($request);
 
         if( $form->isSubmitted() && $form->isValid()){

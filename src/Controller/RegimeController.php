@@ -35,7 +35,7 @@ class RegimeController extends AbstractController
     {
         $regime = new Regime;
 
-        $form = $this->createForm(RegimeType::class);
+        $form = $this->createForm(RegimeType::class, $regime, ['id' => $this->getUser()->getId()]);
         $form->handleRequest($request);
 
         if( $form->isSubmitted() && $form->isValid()){
@@ -76,7 +76,7 @@ class RegimeController extends AbstractController
     {
         $regime = $this->getDoctrine()->getRepository(Regime::class)->find($id);
 
-        $form = $this->createForm(RegimeType::class, $regime);
+        $form = $this->createForm(RegimeType::class, $regime, ['id' => $this->getUser()->getId()]);
         $form->handleRequest($request);
 
         if( $form->isSubmitted() && $form->isValid()){

@@ -42,6 +42,9 @@
 							Type
 						</th>
 						<th scope="col">
+							Image
+						</th>
+						<th scope="col">
 							Plats
 						</th>
 						<th scope="col">
@@ -61,6 +64,9 @@
 								</td>
 								<td>
 									{{ regime.type }}
+								</td>
+								<td>
+									<img src={{ regime.image }} width="50px" height="auto" alt="☒no image☒">
 								</td>
 								<td>
 									<div class="dropdown">
@@ -92,14 +98,14 @@
 						{% endfor %}
 					{% else %}
 						<tr>
-							<td colspan="5" style="text-align: center">
+							<td colspan="6" style="text-align: center">
 								<h3> Aucun Regime </h3>
 							</td>
 						</tr>
 					{% endif %}
 					{% if  app.request.pathinfo == '/regime' %}
 						<tr>
-							<td colspan="5" style="text-align: center">
+							<td colspan="6" style="text-align: center">
 								<a href="/regime/ajouter" class="btn btn-primary justify-content-center">Ajouter Regime</a>
 							</td>
 						</tr>
